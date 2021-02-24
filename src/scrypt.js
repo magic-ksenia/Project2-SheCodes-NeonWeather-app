@@ -127,14 +127,65 @@ function citySubmit(event) {
   }
 }
 
+// Units conversion
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+
+  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemp);
+
+  let feelslikeTempF = (feelslikeTempC * 9) / 5 + 32;
+  let feelslikeElement = document.querySelector("#feels-like");
+  feelslikeElement.innerHTML = Math.round(feelslikeTempF);
+
+  let forecastMaxTempF = (forecastMaxTempC * 9) / 5 + 32;
+  let forecastMaxTempElement = document.querySelector("#forecast-max");
+  forecastMaxTempElement.innerHTML = Math.round(forecastMaxTempF);
+
+  let forecastMinTempF = (forecastMinTempC * 9) / 5 + 32;
+  let forecastMinTempElement = document.querySelector("#forecast-min");
+  forecastMinTempElement.innerHTML = Math.round(forecastMinTempF);
+}
+
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemp);
+
+  let feelslikeElement = document.querySelector("#feels-like");
+  feelslikeElement.innerHTML = Math.round(feelslikeTempC);
+
+  let forecastMaxTempElement = document.querySelector("#forecast-max");
+  forecastMaxTempElement.innerHTML = Math.round(forecastMaxTempC);
+
+  let forecastMinTempElement = document.querySelector("#forecast-min");
+  forecastMinTempElement.innerHTML = Math.round(forecastMinTempC);
+}
+
+let celsiusTemp = null;
+let feelslikeTempC = null;
+let forecastMinTempC = null;
+let forecastMaxTempC = null;
+
 let formSearch = document.querySelector("#search-form");
 formSearch.addEventListener("submit", citySubmit);
 
 // default search
 search("Dreamland");
 
-// Current geolocation weather now + forecast
+let celsiusLink = document.querySelector("#display-celsius");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
+let fahrenheitLink = document.querySelector("#display-fahrenheit");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+
+// Current geolocation weather now + forecast
 function errorMessage(error) {
   alert("Oops! Could not find forward location.");
 }
