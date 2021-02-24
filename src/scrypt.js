@@ -116,6 +116,8 @@ function displayForecast(response) {
   let forecast = null;
   for (let i = 0; i < 6; i++) {
     forecast = response.data.list[i];
+    forecastMaxTempC = response.data.list[i].main.temp_max;
+    forecastMinTempC = response.data.list[i].main.temp_min;
     forecastElement.innerHTML += `
     <div class="col-2">
               <h5 id="day-of-week">${formatTime(forecast)}</h5>
@@ -123,11 +125,11 @@ function displayForecast(response) {
                 forecast.weather[0].icon
               }.png" alt="${forecast.weather[0].description}"/>
               <div class="weather-forecast-temperature">
-                <strong><span id="#forecast-max">${Math.round(
-                  forecast.main.temp_max
+                <strong><span class= "forecast-max" id="forecast-max">${Math.round(
+                  forecastMaxTempC
                 )}</span>° </strong>∙
-                <span id="#forecast-min">${Math.round(
-                  forecast.main.temp_min
+                <span class= "forecast-min" id="forecast-min">${Math.round(
+                  forecastMinTempC
                 )}</span>°
               </div>
             </div>`;
@@ -171,11 +173,20 @@ function displayFahrenheitTemperature(event) {
 
   let forecastMaxTempF = (forecastMaxTempC * 9) / 5 + 32;
   let forecastMaxTempElement = document.querySelector("#forecast-max");
-  forecastMaxTempElement.innerHTML = Math.round(forecastMaxTempF);
+  let forecastMaxTempElements = document.querySelectorAll("#forecast-max");
+  forecastMaxTempElements.forEach(
+    (forecastMaxTempElement.innerHTML = Math.round(forecastMaxTempF))
+  );
 
   let forecastMinTempF = (forecastMinTempC * 9) / 5 + 32;
+  /*let forecastMinTempElement = document.querySelectorAll("#forecast-min");
+    forecastMinTempElement.innerHTML = Math.round(forecastMinTempF);
+   */
   let forecastMinTempElement = document.querySelector("#forecast-min");
-  forecastMinTempElement.innerHTML = Math.round(forecastMinTempF);
+  let forecastMinTempElements = document.querySelectorAll("#forecast-min");
+  forecastMinTempElements.forEach(
+    (forecastMinTempElement.innerHTML = Math.round(forecastMinTempF))
+  );
 }
 
 function displayCelsiusTemperature(event) {
@@ -190,10 +201,16 @@ function displayCelsiusTemperature(event) {
   feelslikeElement.innerHTML = Math.round(feelslikeTempC);
 
   let forecastMaxTempElement = document.querySelector("#forecast-max");
-  forecastMaxTempElement.innerHTML = Math.round(forecastMaxTempC);
+  let forecastMaxTempElements = document.querySelectorAll("#forecast-max");
+  forecastMaxTempElements.foreEach(
+    (forecastMaxTempElement.innerHTML = Math.round(forecastMaxTempC))
+  );
 
   let forecastMinTempElement = document.querySelector("#forecast-min");
-  forecastMinTempElement.innerHTML = Math.round(forecastMinTempC);
+  let forecastMinTempElements = document.querySelectorAll("#forecast-min");
+  forecastMinTempElements.forEach(
+    (forecastMinTempElement.innerHTML = Math.round(forecastMinTempC))
+  );
 }
 
 let celsiusTemp = null;
