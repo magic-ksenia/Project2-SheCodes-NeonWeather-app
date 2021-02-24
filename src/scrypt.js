@@ -125,12 +125,10 @@ function displayForecast(response) {
                 forecast.weather[0].icon
               }.png" alt="${forecast.weather[0].description}"/>
               <div class="weather-forecast-temperature">
-                <strong><span class= "forecast-max" id="forecast-max">${Math.round(
+                <strong><span id="forecast-max">${Math.round(
                   forecastMaxTempC
                 )}</span>° </strong>∙
-                <span class= "forecast-min" id="forecast-min">${Math.round(
-                  forecastMinTempC
-                )}</span>°
+                <span id="forecast-min">${Math.round(forecastMinTempC)}</span>°
               </div>
             </div>`;
   }
@@ -170,7 +168,7 @@ function displayFahrenheitTemperature(event) {
   let feelslikeTempF = (feelslikeTempC * 9) / 5 + 32;
   let feelslikeElement = document.querySelector("#feels-like");
   feelslikeElement.innerHTML = Math.round(feelslikeTempF);
-
+  /*
   let forecastMaxTempF = (forecastMaxTempC * 9) / 5 + 32;
   let forecastMaxTempElement = document.querySelector("#forecast-max");
   let forecastMaxTempElements = document.querySelectorAll("#forecast-max");
@@ -178,15 +176,17 @@ function displayFahrenheitTemperature(event) {
     (forecastMaxTempElement.innerHTML = Math.round(forecastMaxTempF))
   );
 
-  let forecastMinTempF = (forecastMinTempC * 9) / 5 + 32;
-  /*let forecastMinTempElement = document.querySelectorAll("#forecast-min");
+  
+  let forecastMinTempElement = document.querySelector("#forecast-min");
     forecastMinTempElement.innerHTML = Math.round(forecastMinTempF);
-   */
+   
+  let forecastMinTempF = (forecastMinTempC * 9) / 5 + 32;
   let forecastMinTempElement = document.querySelector("#forecast-min");
   let forecastMinTempElements = document.querySelectorAll("#forecast-min");
   forecastMinTempElements.forEach(
     (forecastMinTempElement.innerHTML = Math.round(forecastMinTempF))
   );
+    */
 }
 
 function displayCelsiusTemperature(event) {
@@ -199,7 +199,7 @@ function displayCelsiusTemperature(event) {
 
   let feelslikeElement = document.querySelector("#feels-like");
   feelslikeElement.innerHTML = Math.round(feelslikeTempC);
-
+  /*
   let forecastMaxTempElement = document.querySelector("#forecast-max");
   let forecastMaxTempElements = document.querySelectorAll("#forecast-max");
   forecastMaxTempElements.foreEach(
@@ -211,13 +211,15 @@ function displayCelsiusTemperature(event) {
   forecastMinTempElements.forEach(
     (forecastMinTempElement.innerHTML = Math.round(forecastMinTempC))
   );
+  */
 }
 
 let celsiusTemp = null;
 let feelslikeTempC = null;
+/*
 let forecastMinTempC = null;
 let forecastMaxTempC = null;
-
+*/
 let formSearch = document.querySelector("#search-form");
 formSearch.addEventListener("submit", citySubmit);
 
