@@ -132,3 +132,25 @@ formSearch.addEventListener("submit", citySubmit);
 
 // default search
 search("Dreamland");
+
+// Current geolocation weather now + forecast
+
+function errorMessage(error) {
+  alert("Oops! Could not find forward location.");
+}
+
+function currentLocationSearch(position) {
+  let apiKey = "2ccfd3ff79016dcd8763eb6a62db444b";
+  let currentLat = position.coords.latitude;
+  let currentLong = position.coords.longitude;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${currentLat}&lon=${currentLong}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature).catch(errorMessage);
+}
+
+function fetchLocation(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(currentLocationSearch);
+}
+
+let currentLocationButton = document.querySelector("#current-location");
+currentLocationButton.addEventListener("click", fetchLocation);
