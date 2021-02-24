@@ -55,6 +55,14 @@ let months = [
   "December",
 ];
 
+function formatDate(timestamp) {
+  let now = new Date(timestamp.dt * 1000);
+  let date = now.getDate();
+  let day = days[now.getDay()];
+  let month = months[now.getMonth()];
+  return `${month} ${date}, ${day} | ${formatTime(timestamp)}`;
+}
+
 function formatLocalDate(props) {
   let localTime = new Date(props.dt * 1000);
   let localTimeOffset = localTime.getTimezoneOffset() * 60;
@@ -67,14 +75,6 @@ function formatLocalDate(props) {
   return `${localMonth} ${localDate},  ${localDay} | ${formatLocalTime(
     props
   )} `;
-}
-
-function formatDate(timestamp) {
-  let now = new Date(timestamp.dt * 1000);
-  let date = now.getDate();
-  let day = days[now.getDay()];
-  let month = months[now.getMonth()];
-  return `${month} ${date}, ${day} | ${formatTime(timestamp)}`;
 }
 
 // 🌦  Current Weather API integration
@@ -109,11 +109,39 @@ function displayTemperature(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
-// Search current weather by city
+// 🌦  Forecast API integration
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+  for (let i = 0; i < 6; i++) {
+    forecast = response.data.list[i];
+    forecastElement.innerHTML += `
+    <div class="col-2">
+              <h5 id="day-of-week">${formatTime(forecast)}</h5>
+              <img src="media/WeatherIcons/${
+                forecast.weather[0].icon
+              }.png" alt="${forecast.weather[0].description}"/>
+              <div class="weather-forecast-temperature">
+                <strong><span id="#forecast-max">${Math.round(
+                  forecast.main.temp_max
+                )}</span>° </strong>∙
+                <span id="#forecast-min">${Math.round(
+                  forecast.main.temp_min
+                )}</span>°
+              </div>
+            </div>`;
+  }
+}
+
+// Search current weather+forecast by city (API call)
 function search(city) {
   let apiKey = "2ccfd3ff79016dcd8763eb6a62db444b";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemperature);
+
+  let apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrlForecast).then(displayForecast);
 }
 
 // Search engine
@@ -196,6 +224,9 @@ function currentLocationSearch(position) {
   let currentLong = position.coords.longitude;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${currentLat}&lon=${currentLong}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemperature).catch(errorMessage);
+
+  let apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLat}&lon=${currentLong}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrlForecast).then(displayForecast);
 }
 
 function fetchLocation(event) {
