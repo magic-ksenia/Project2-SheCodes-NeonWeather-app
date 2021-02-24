@@ -11,17 +11,191 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="src/styles.css" />
+    <script
+      src="https://kit.fontawesome.com/e8ac74765d.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Neon weather 💫</title>
   </head>
+
   <body>
     <div class="container">
-      <h1>WeatherApp</h1>
-      <input
-        type="submit"
-        class="btn btn-light"
-        value="Go!"
-        id="searchButton"
-      />
+      <div class="weather-app-wrapper">
+        <div class="weather-app">
+          <div class="search">
+            <form class="search-form" id="search-form">
+              <div class="row">
+                <div class="col-9">
+                  <input
+                    type="search"
+                    class="form-control"
+                    id="city-input"
+                    placeholder="Enter a city..."
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="col-3">
+                  <input
+                    type="submit"
+                    class="btn btn-light"
+                    value="Go!"
+                    id="searchButton"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    id="current-location"
+                  >
+                    <i class="fas fa-map-marker-alt"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="last-updated">
+            <h5>
+              Last updated:
+              <span id="date-time">February 24, Wednesday | 19:09</span>
+            </h5>
+          </div>
+
+          <div class="row">
+            <div class="col-7 current-temperature">
+              <h1>
+                <span id="city">Dreamland</span>, <span id="country">US</span>
+              </h1>
+              <h4 id="local-time">February 24, Wednesday | 13:09</h4>
+              <div class="weather-temperature">
+                <span class="temperature" id="temperature">23</span>
+                <span class="units">
+                  <a href="#" class="active" id="display-celsius">°C</a>
+                  |
+                  <a href="#" id="display-fahrenheit">°F</a>
+                </span>
+              </div>
+            </div>
+
+            <div class="col-5">
+              <div class="description-emoji text-center mt-4">
+                <img
+                  src="media/WeatherIcons/01d.png"
+                  alt="Clear"
+                  id="icon"
+                  width="200px"
+                />
+                <h4 class="description" id="description">Overcast clouds</h4>
+              </div>
+              <div class="details">
+                <ul>
+                  <li>
+                    <img
+                      src="media/feelslike.png"
+                      alt="thermometer"
+                      width="22px"
+                    />
+                    Feels like <span id="feels-like">20</span>°
+                  </li>
+                  <li>
+                    <img src="media/humidity.png" alt="Humidity" width="22px" />
+                    Humidity: <span id="humidity">87</span> %
+                  </li>
+
+                  <li>
+                    <img src="media/wind.png" alt="Wind" width="22px" />
+                    Wind: <span id="wind">2</span> m/s
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="row text-center weather-forecast" id="forecast">
+            <div class="col-2">
+              <h5 id="day-of-week">06:00</h5>
+              <img
+                src="media/WeatherIcons/01d.png"
+                alt="Clear Sky"
+                width="50px"
+              />
+              <div class="weather-forecast-temperature">
+                <strong><span id="#forecast-max">5</span>° </strong>∙
+                <span id="#forecast-min">3</span>°
+              </div>
+            </div>
+            <div class="col-2">
+              <h5 id="day-of-week">09:00</h5>
+              <img
+                src="media/WeatherIcons/11n.png"
+                alt="Clear Sky"
+                width="50px"
+              />
+              <div class="weather-forecast-temperature">
+                <strong><span id="#forecast-max">5</span>° </strong>∙
+                <span id="#forecast-min">3</span>°
+              </div>
+            </div>
+            <div class="col-2">
+              <h5 id="day-of-week">12:00</h5>
+              <img
+                src="media/WeatherIcons/02n.png"
+                alt="Clear Sky"
+                width="50px"
+              />
+              <div class="weather-forecast-temperature">
+                <strong><span id="#forecast-max">5</span>° </strong>∙
+                <span id="#forecast-min">3</span>°
+              </div>
+            </div>
+            <div class="col-2">
+              <h5 id="day-of-week">15:00</h5>
+              <img
+                src="media/WeatherIcons/04n.png"
+                alt="Clear Sky"
+                width="50px"
+              />
+              <div class="weather-forecast-temperature">
+                <strong><span id="#forecast-max">5</span>° </strong>∙
+                <span id="#forecast-min">3</span>°
+              </div>
+            </div>
+            <div class="col-2">
+              <h5 id="day-of-week">18:00</h5>
+              <img
+                src="media/WeatherIcons/13d.png"
+                alt="Clear Sky"
+                width="50px"
+              />
+              <div class="weather-forecast-temperature">
+                <strong><span id="#forecast-max">5</span>° </strong>∙
+                <span id="#forecast-min">3</span>°
+              </div>
+            </div>
+            <div class="col-2">
+              <h5 id="day-of-week">21:00</h5>
+              <img
+                src="media/WeatherIcons/03d.png"
+                alt="Clear Sky"
+                width="50px"
+              />
+              <div class="weather-forecast-temperature">
+                <strong><span id="#forecast-max">5</span>° </strong>∙
+                <span id="#forecast-min">3</span>°
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="footer">
+          <i class="fab fa-github" aria-hidden="true"></i>
+          <a
+            href="https://github.com/magic-ksenia/Project-2-SheCodes-weather-app"
+          >
+            Open-source code</a
+          >
+          by Oksana Stalbovskaya👩🏻‍💻
+        </p>
+      </div>
     </div>
     <script src="src/scrypt.js"></script>
   </body>
