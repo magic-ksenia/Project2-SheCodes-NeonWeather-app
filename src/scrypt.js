@@ -125,10 +125,12 @@ function displayForecast(response) {
                 forecast.weather[0].icon
               }.png" alt="${forecast.weather[0].description}"/>
               <div class="weather-forecast-temperature">
-                <strong><span id="forecast-max">${Math.round(
+                <strong><span class="forecast-max">${Math.round(
                   forecastMaxTempC
                 )}</span>° </strong>∙
-                <span id="forecast-min">${Math.round(forecastMinTempC)}</span>°
+                <span class="forecast-min">${Math.round(
+                  forecastMinTempC
+                )}</span>°
               </div>
             </div>`;
   }
@@ -139,7 +141,6 @@ function search(city) {
   let apiKey = "2ccfd3ff79016dcd8763eb6a62db444b";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemperature);
-
   let apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrlForecast).then(displayForecast);
 }
@@ -147,6 +148,11 @@ function search(city) {
 // Search engine
 function citySubmit(event) {
   event.preventDefault();
+  // reset conversion
+  celsiusLink.removeEventListener("click", displayCelsiusTemperature);
+  fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
   let cityInputElement = document.querySelector("#city-input");
   if (cityInputElement.value) {
     search(cityInputElement.value);
@@ -168,25 +174,25 @@ function displayFahrenheitTemperature(event) {
   let feelslikeTempF = (feelslikeTempC * 9) / 5 + 32;
   let feelslikeElement = document.querySelector("#feels-like");
   feelslikeElement.innerHTML = Math.round(feelslikeTempF);
-  /*
-  let forecastMaxTempF = (forecastMaxTempC * 9) / 5 + 32;
-  let forecastMaxTempElement = document.querySelector("#forecast-max");
-  let forecastMaxTempElements = document.querySelectorAll("#forecast-max");
-  forecastMaxTempElements.forEach(
-    (forecastMaxTempElement.innerHTML = Math.round(forecastMaxTempF))
-  );
 
-  
-  let forecastMinTempElement = document.querySelector("#forecast-min");
-    forecastMinTempElement.innerHTML = Math.round(forecastMinTempF);
-   
-  let forecastMinTempF = (forecastMinTempC * 9) / 5 + 32;
-  let forecastMinTempElement = document.querySelector("#forecast-min");
-  let forecastMinTempElements = document.querySelectorAll("#forecast-min");
-  forecastMinTempElements.forEach(
-    (forecastMinTempElement.innerHTML = Math.round(forecastMinTempF))
-  );
-    */
+  let forecastMax = document.querySelectorAll(".forecast-max");
+  forecastMax.forEach(function (item) {
+    // grabbing the current value to convert
+    let currentTemp = item.innerHTML;
+    // convert to Fahrenheit
+    item.innerHTML = Math.round((currentTemp * 9) / 5 + 32);
+  });
+
+  let forecastMin = document.querySelectorAll(".forecast-min");
+  forecastMin.forEach(function (item) {
+    // grabbing the current value to convert
+    let currentTemp = item.innerHTML;
+    // convert to Fahrenheit
+    item.innerHTML = Math.round((currentTemp * 9) / 5 + 32);
+  });
+  // to avoid double conversion
+  celsiusLink.addEventListener("click", displayCelsiusTemperature);
+  fahrenheitLink.removeEventListener("click", displayFahrenheitTemperature);
 }
 
 function displayCelsiusTemperature(event) {
@@ -199,27 +205,30 @@ function displayCelsiusTemperature(event) {
 
   let feelslikeElement = document.querySelector("#feels-like");
   feelslikeElement.innerHTML = Math.round(feelslikeTempC);
-  /*
-  let forecastMaxTempElement = document.querySelector("#forecast-max");
-  let forecastMaxTempElements = document.querySelectorAll("#forecast-max");
-  forecastMaxTempElements.foreEach(
-    (forecastMaxTempElement.innerHTML = Math.round(forecastMaxTempC))
-  );
 
-  let forecastMinTempElement = document.querySelector("#forecast-min");
-  let forecastMinTempElements = document.querySelectorAll("#forecast-min");
-  forecastMinTempElements.forEach(
-    (forecastMinTempElement.innerHTML = Math.round(forecastMinTempC))
-  );
-  */
+  let forecastMax = document.querySelectorAll(".forecast-max");
+  forecastMax.forEach(function (item) {
+    // grabbing the current value to convert
+    let currentTemp = item.innerHTML;
+    // convert to Celsius
+    item.innerHTML = Math.round(((currentTemp - 32) * 5) / 9);
+  });
+  let forecastMin = document.querySelectorAll(".forecast-min");
+  forecastMin.forEach(function (item) {
+    // grabbing the current value to convert
+    let currentTemp = item.innerHTML;
+    // convert to Celsius
+    item.innerHTML = Math.round(((currentTemp - 32) * 5) / 9);
+  });
+  // to avoid double conversion
+  celsiusLink.removeEventListener("click", displayCelsiusTemperature);
+  fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 }
 
 let celsiusTemp = null;
 let feelslikeTempC = null;
-/*
-let forecastMinTempC = null;
-let forecastMaxTempC = null;
-*/
+let currentTemp = null;
+
 let formSearch = document.querySelector("#search-form");
 formSearch.addEventListener("submit", citySubmit);
 
@@ -243,13 +252,17 @@ function currentLocationSearch(position) {
   let currentLong = position.coords.longitude;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${currentLat}&lon=${currentLong}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemperature).catch(errorMessage);
-
   let apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLat}&lon=${currentLong}&units=metric&appid=${apiKey}`;
   axios.get(apiUrlForecast).then(displayForecast);
 }
 
 function fetchLocation(event) {
   event.preventDefault();
+  // reset conversion
+  celsiusLink.removeEventListener("click", displayCelsiusTemperature);
+  fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
   navigator.geolocation.getCurrentPosition(currentLocationSearch);
 }
 
