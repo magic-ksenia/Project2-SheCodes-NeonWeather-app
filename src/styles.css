@@ -39,7 +39,9 @@ li {
 
 .weather-app-wrapper {
   max-width: 780px;
-  min-width: 730px;
+  min-width: 680px;
+  /* For tablets: 
+  min-width: 600px;*/
   margin: 15px auto;
 }
 

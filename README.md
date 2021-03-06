@@ -11,14 +11,14 @@ This weather application is using real-time data from the OpenWeatherMap API - h
 
 In this application:
 • Current weather by city search and current geolocation
-• Weather forecast for the selected city and current geolocation with maximum and minimum temperature for every 3 hours.
-• Displaying Fahrenheit or Celsius temperature.
 • Weather description (Weather Condition Icons, real temperature feeling, humidity, wind)
+• Weather forecast data with maximum and minimum temperature every 3 hours by city name and current geolocation
+• Displaying Fahrenheit or Celsius temperature (units conversion working for current weather data as well as forecast data).
 
 # Credits
 
-Icons Designer: Creative Stall (https://www.iconfinder.com/creativestall)
-Technologies used: Vanilla JS, WeatherMapAPI and Bootstrap.
+• Icons Designer: Creative Stall (https://www.iconfinder.com/creativestall)
+• Technologies used: HTML 5Vanilla JS, WeatherMapAPI and Bootstrap.
 
 # UX
 
